@@ -14,17 +14,17 @@ import java.util.Map;
 @Service
 public class ProcessService {
     private final RestTemplate restTemplate;
-    String camundaUrl = "http://localhost:8080/camunda";
+    String camundaUrl = "http://localhost:8080/engine-rest";
 
     @Autowired
     public ProcessService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public String StartProcess(String processDefinitionKey, ClientModel client) {
+    public String StartProcess(ClientModel client) {
         URI uri = UriComponentsBuilder.fromHttpUrl(camundaUrl)
                 .path("/process-definition/key/{key}/start")
-                .buildAndExpand(processDefinitionKey)
+                .buildAndExpand("Process_0lufe9s")
                 .toUri();
 
         Map<String, Object> variables = convertClientToVariables(client);

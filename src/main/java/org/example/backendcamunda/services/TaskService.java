@@ -31,6 +31,14 @@ public class TaskService {
         restTemplate.postForObject(url, body, Void.class);
     }
 
+    public void assignTask(String taskId, String userId) {
+        String url = camundaUrl + "/task/" + taskId + "/assignee";
+        Map<String, String> body = new HashMap<>();
+        body.put("userId", userId);
+
+        restTemplate.postForObject(url, body, Void.class);
+    }
+
     public void completeTask(String taskId, Map<String, Object> variables) {
         String url = camundaUrl + "/task/" + taskId + "/complete";
         Map<String, Object> requestBody = new HashMap<>();
@@ -62,6 +70,34 @@ public class TaskService {
                     .collect(Collectors.toList());
         } catch (Exception e) {
             System.out.println("Error recibiendo las tareas: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public List<InfoTasksDTO> getAssignedTasks(String userId) {
+        try {
+            String url = UriComponentsBuilder.fromHttpUrl(camundaUrl)
+                    .path("/task")
+                    .queryParam("assignee", userId)
+                    .toUriString();
+
+            ResponseEntity<List<TaskModel>> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<TaskModel>>() {}
+            );
+
+            return response.getBody().stream()
+                    .map(task -> new InfoTasksDTO(
+                            task.getId(),
+                            task.getName(),
+                            task.getDescription(),
+                            task.getCreated() != null ? task.getCreated().toString() : "No date provided"
+                    ))
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            System.out.println("Error recibiendo las tareas asignadas: " + e.getMessage());
             return null;
         }
     }

@@ -32,28 +32,28 @@
           Información del Cliente
         </div>
         <div class="card-body">
-          <form id="informacionClienteForm">
+          <form id="informacionClienteForm" action="/iniciarProceso" method="post">
             <div class="form-group">
               <label for="nombreCliente">Nombre del Cliente:</label>
-              <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" required>
+              <input type="text" class="form-control" id="nombreCliente" name="clientName" required>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="edadCliente">Edad:</label>
-                <input type="number" class="form-control" id="edadCliente" name="edadCliente" required>
+                <input type="number" class="form-control" id="edadCliente" name="clientAge" required>
               </div>
               <div class="form-group col-md-6">
                 <label for="cantSiniestros">Siniestros presentados:</label>
-                <input type="number" class="form-control" id="cantSiniestros" name="cantSiniestros" required>
+                <input type="number" class="form-control" id="cantSiniestros" name="numberAccidents" required>
               </div>
             </div>
             <div class="form-group">
               <label for="marcaVehiculo">Marca del Vehículo:</label>
-              <input type="text" class="form-control" id="marcaVehiculo" name="marcaVehiculo" required>
+              <input type="text" class="form-control" id="marcaVehiculo" name="brandVehicle" required>
             </div>
             <div class="form-group">
               <label for="referenciaVehiculo">Referencia del Vehículo:</label>
-              <input type="text" class="form-control" id="referenciaVehiculo" name="referenciaVehiculo" required>
+              <input type="text" class="form-control" id="referenciaVehiculo" name="vehicleReference" required>
             </div>
             <button type="submit" class="btn btn-primary" style="background-color: #28593f; border-color: transparent;">Enviar</button>
           </form>
